@@ -3,7 +3,7 @@
 meta.name = '4 Ice Caves'
 meta.version = '1.0'
 meta.description =
-    'Ice caves are now 4 levels. Allows for smaller levels to compensate'
+    'Ice caves are now 4 levels.'
 meta.author = 'plow'
 
 -- Set up our locals
