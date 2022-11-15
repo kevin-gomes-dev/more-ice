@@ -6,6 +6,7 @@ meta.description =
     'Ice caves are now 4 levels. Allows for smaller levels to compensate'
 meta.author = 'plow'
 
+-- Set up our locals
 local level_count = 1
 local frozen_ice_level_count = true
 
