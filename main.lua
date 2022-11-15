@@ -53,7 +53,8 @@ local function main()
       set_ice_caves()
     else
       -- Duplicate reset since it happens on start, and we can't travel backwards
-      -- But here just for easier testing and in case a mod allows going backwards
+      -- But here just for easier testing, more self contained 
+      -- and in case a mod allows going backwards
       reset_level_count()
       set_neo()
     end
@@ -62,7 +63,7 @@ local function main()
   end
 end
 
--- On transition, if we haven't gone through 4 levels, reset state.level
+-- Our callbacks
 set_callback(main, ON.LOADING)
 set_callback(maybe_unfreeze_level_count, ON.LEVEL)
 set_callback(reset_level_count, ON.START)
