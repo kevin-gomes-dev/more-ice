@@ -1,7 +1,7 @@
 -- This simply allows you to play 4 levels of the ice cave as opposed to one. To be
 -- similar to Spelunky HD / Spelunky Classic
 meta.name = '4 Ice Caves'
-meta.version = '1.0'
+meta.version = '1.1'
 meta.description =
     'Ice caves are now 4 levels.'
 meta.author = 'plow'
