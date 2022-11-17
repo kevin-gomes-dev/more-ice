@@ -8,33 +8,12 @@ meta.author = 'plow'
 
 -- Set up our locals
 local level_count = 1
-local frozen_ice_level_count = true
 
----Change state's level and next level info to be ice caves
+---Change the exit door to go to ice caves
+---Should only be 1 door in ice caves...
 local function set_ice_caves()
-  state.level_next = level_count
-  state.world_next = 5
-  state.theme_next = THEME.ICE_CAVES
-end
-
----Change state's next level info to be ice caves
-local function set_neo()
-  state.level_next = 1
-  state.world_next = 6
-  state.theme_next = THEME.NEO_BABYLON
-end
-
----Unfreeze the ice level count
-local function maybe_unfreeze_level_count()
-  if state.theme == THEME.ICE_CAVES then
-    frozen_ice_level_count = false
-  end
-end
-
----Freeze the ice level count. Note if this stays frozen,
----we forever repeat the same ice level
-local function freeze_level_count()
-  frozen_ice_level_count = true
+  local door = get_entities_by(ENT_TYPE.FLOOR_DOOR_EXIT,0,0)[1]
+  set_door_target(door,5,level_count,THEME.ICE_CAVES)
 end
 
 ---Resets our level count
@@ -46,24 +25,18 @@ end
 ---gone through 4 levels, increment amount we went through and set
 ---the next level to be ice caves again
 local function main()
-  if not frozen_ice_level_count
-      and state.theme == THEME.ICE_CAVES then
+  if state.theme == THEME.ICE_CAVES then
     if level_count < 4 then
       level_count = level_count + 1
       set_ice_caves()
     else
       -- Duplicate reset since it happens on start, and we can't travel backwards
-      -- But here just for easier testing, more self contained 
-      -- and in case a mod allows going backwards
+      -- But here just for easier testing, more self contained
       reset_level_count()
-      set_neo()
     end
-
-    freeze_level_count()
   end
 end
 
--- Our callbacks
-set_callback(main, ON.LOADING)
-set_callback(maybe_unfreeze_level_count, ON.LEVEL)
+-- Our callbacks. Order important to have ON.START happen before ON.LEVEL
 set_callback(reset_level_count, ON.START)
+set_callback(main, ON.LEVEL)
